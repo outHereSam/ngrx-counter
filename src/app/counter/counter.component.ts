@@ -17,6 +17,11 @@ export class CounterComponent {
 
   constructor() {
     this.count$ = this.store.select('counter');
+    this.store
+      .select((state) => state.counter)
+      .subscribe((count) => {
+        localStorage.setItem('counter', JSON.stringify(count));
+      });
   }
 
   increment() {

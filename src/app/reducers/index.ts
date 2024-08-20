@@ -8,7 +8,9 @@ import {
 } from '@ngrx/store';
 import { counterReducer } from './counter.reducer';
 
-export interface State {}
+export interface State {
+  counter: number;
+}
 
 export const reducers: ActionReducerMap<State> = {
   counter: counterReducer,

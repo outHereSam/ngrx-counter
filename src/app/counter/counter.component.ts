@@ -1,12 +1,33 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { count, Observable } from 'rxjs';
+import { increment, decrement, reset } from '../counter.actions';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'app-counter',
   standalone: true,
-  imports: [],
+  imports: [AsyncPipe],
   templateUrl: './counter.component.html',
-  styleUrl: './counter.component.css'
+  styleUrl: './counter.component.css',
 })
 export class CounterComponent {
+  private store = inject(Store);
+  count$?: Observable<number>;
 
+  constructor() {
+    this.count$ = this.store.select('counter');
+  }
+
+  increment() {
+    this.store.dispatch(increment());
+  }
+
+  decrement() {
+    this.store.dispatch(decrement());
+  }
+
+  reset() {
+    this.store.dispatch(reset());
+  }
 }
